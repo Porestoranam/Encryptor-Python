@@ -1,5 +1,6 @@
 import math
 import string
+import sys
 from encode_and_decode import new_char
 
 
@@ -68,7 +69,7 @@ def make_dict_of_strings_and_values(main_string, ideal_allocation):
 
 def answer(main_string, ideal_allocation):
     """return ans_string"""
-    ans = 106.0
+    ans = sys.maxsize
     ans_string = ''
     dict_of_strings_and_values = make_dict_of_strings_and_values(main_string, ideal_allocation)
     for key, value in dict_of_strings_and_values.items():
