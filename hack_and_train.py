@@ -53,7 +53,6 @@ def count_ideal_allocation(text_for_train):
             ideal_allocation[symbol] += 1
     for letter in string.ascii_letters:
         ideal_allocation[letter] /= length_text_for_train
-    ideal_allocation['length'] = length_text_for_train
     return ideal_allocation
 
 
