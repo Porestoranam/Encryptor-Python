@@ -32,12 +32,12 @@ hack_parser.add_argument('--output-file', required=False, help='write there')
 hack_parser.add_argument('--model-file', required=True, help='Text to learn')
 
 args = parser.parse_args()
+if args.input_file is not None:
+    with open(args.input_file) as file:
+        input_ = file.read()
+else:
+    input_ = input()
 if args.method == 'encode':
-    if args.input_file is not None:
-        with open(args.input_file) as file:
-            input_ = file.read()
-    else:
-        input_ = input()
     if args.cipher == 'caesar':
         if args.output_file is not None:
             output = open(args.output_file, 'w')
@@ -54,11 +54,6 @@ if args.method == 'encode':
             print(encode_and_decode.vigenere_encode(input_, args.key))
 
 elif args.method == 'decode':
-    if args.input_file is not None:
-        with open(args.input_file) as file:
-            input_ = file.read()
-    else:
-        input_ = input()
     if args.cipher == 'caesar':
         if args.output_file is not None:
             output = open(args.output_file, 'w')
@@ -76,7 +71,7 @@ elif args.method == 'decode':
 
 elif args.method == 'train':
     if args.text_file is not None:
-        with open(args.text_file) as file:
+        with open(args.text_file, 'r') as file:
             text_for_train = file.read()
     else:
         text_for_train = input()
@@ -85,11 +80,6 @@ elif args.method == 'train':
 
 
 elif args.method == 'hack':
-    if args.input_file is not None:
-        with open(args.input_file) as file:
-            input_ = file.read()
-    else:
-        input_ = input()
     file = open(args.model_file, 'r')
     ideal_allocation_in_model = pickle.load(open(args.model_file, 'rb'))
     if args.output_file is not None:

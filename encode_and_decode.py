@@ -1,4 +1,5 @@
-def new_char(char, shift):      # make new char using value of shift
+def new_char(char, shift):
+    """make new char using value of shift"""
     ord_char = ord(char)
     dis_from_cap_a = ord_char - ord('A')
     dis_from_cap_z = ord('Z') - ord_char
@@ -14,7 +15,8 @@ def new_char(char, shift):      # make new char using value of shift
         return char
 
 
-def caesar_encode_string(main_string, shift):       # encode caesar string
+def caesar_encode_string(main_string, shift):
+    """"encode caesar string"""
     new_string = ''
     for char in main_string:
         new_string += new_char(char, shift)
@@ -25,7 +27,8 @@ def caesar_decode_string(main_string, shift):
     return caesar_encode_string(main_string, (-1) * shift)
 
 
-def vigenere_encode(my_string, key):        # return string encode like vigenere
+def vigenere_encode(my_string, key):
+    """return string encode like vigenere"""
     length = len(key)
     new_string = ''
     for i in range(0, len(my_string)):
@@ -39,7 +42,8 @@ def vigenere_encode(my_string, key):        # return string encode like vigenere
     return new_string
 
 
-def vigenere_decode(my_string, key):        # return string decode like vigenere
+def vigenere_decode(my_string, key):
+    """return string decode like vigenere"""
     length = len(key)
     new_string = ''
     for i in range(0, len(my_string)):
