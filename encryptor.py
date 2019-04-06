@@ -32,46 +32,41 @@ hack_parser.add_argument('--output-file', required=False, help='write there')
 hack_parser.add_argument('--model-file', required=True, help='Text to learn')
 
 args = parser.parse_args()
-if args.input_file is not None:
-    with open(args.input_file) as file:
-        input_ = file.read()
-else:
-    input_ = input()
+
+
+if hasattr(args, 'input_file'):
+    if args.input_file is not None:
+        with open(args.input_file) as file:
+            input_ = file.read()
+    else:
+        input_ = input()
+
+
 if args.method == 'encode':
     if args.cipher == 'caesar':
-        if args.output_file is not None:
-            output = open(args.output_file, 'w')
-            output.write(encode_and_decode.caesar_encode_string(input_, int(args.key)))
-            output.close()
-        else:
-            print(encode_and_decode.caesar_encode_string(input_, int(args.key)))
+            answer_text = encode_and_decode.caesar_encode_string(input_, int(args.key))
     elif args.cipher == 'vigenere':
         if args.output_file is not None:
-            output = open(args.output_file, 'w')
-            output.write(encode_and_decode.vigenere_encode(input_, args.key))
-            output.close()
-        else:
-            print(encode_and_decode.vigenere_encode(input_, args.key))
+            answer_text = encode_and_decode.vigenere_encode(input_, args.key)
+
 
 elif args.method == 'decode':
     if args.cipher == 'caesar':
-        if args.output_file is not None:
-            output = open(args.output_file, 'w')
-            output.write(encode_and_decode.caesar_decode_string(input_, int(args.key)))
-            output.close()
-        else:
-            print(encode_and_decode.caesar_decode_string(input_, int(args.key)))
+            answer_text = encode_and_decode.caesar_decode_string(input_, int(args.key))
+
     elif args.cipher == 'vigenere':
-        if args.output_file is not None:
-            output = open(args.output_file, 'w')
-            output.write(encode_and_decode.vigenere_decode(input_, args.key))
-            output.close()
-        else:
-            print(encode_and_decode.vigenere_decode(input_, args.key))
+            answer_text = encode_and_decode.vigenere_decode(input_, args.key)
+
+
+elif args.method == 'hack':
+    file = open(args.model_file, 'r')
+    ideal_allocation_in_model = pickle.load(open(args.model_file, 'rb'))
+    answer_text = hack_and_train.answer(input_, ideal_allocation_in_model)
+
 
 elif args.method == 'train':
     if args.text_file is not None:
-        with open(args.text_file, 'r') as file:
+        with open(args.text_file) as file:
             text_for_train = file.read()
     else:
         text_for_train = input()
@@ -79,12 +74,10 @@ elif args.method == 'train':
     pickle.dump(allocation_in_model, open(args.model_file, 'wb'))
 
 
-elif args.method == 'hack':
-    file = open(args.model_file, 'r')
-    ideal_allocation_in_model = pickle.load(open(args.model_file, 'rb'))
+if hasattr(args, 'output_file'):
     if args.output_file is not None:
         output = open(args.output_file, 'w')
-        output.write(hack_and_train.answer(input_, ideal_allocation_in_model))
+        output.write(answer_text)
         output.close()
     else:
-        print(hack_and_train.answer(input_, ideal_allocation_in_model))
+        print(answer_text)
