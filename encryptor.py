@@ -46,8 +46,7 @@ if args.method == 'encode':
     if args.cipher == 'caesar':
             answer_text = encode_and_decode.caesar_encode_string(input_, int(args.key))
     elif args.cipher == 'vigenere':
-        if args.output_file is not None:
-            answer_text = encode_and_decode.vigenere_encode(input_, args.key)
+            answer_text = encode_and_decode.vigenere_encode_and_decode(input_, args.key, 'encode')
 
 
 elif args.method == 'decode':
@@ -55,7 +54,7 @@ elif args.method == 'decode':
             answer_text = encode_and_decode.caesar_decode_string(input_, int(args.key))
 
     elif args.cipher == 'vigenere':
-            answer_text = encode_and_decode.vigenere_decode(input_, args.key)
+            answer_text = encode_and_decode.vigenere_encode_and_decode(input_, args.key, 'decode')
 
 
 elif args.method == 'hack':

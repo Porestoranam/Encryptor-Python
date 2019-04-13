@@ -17,41 +17,30 @@ def new_char(char, shift):
 
 def caesar_encode_string(main_string, shift):
     """"encode caesar string"""
-    new_string = ''
+    new_string = []
     for char in main_string:
-        new_string += new_char(char, shift)
-    return new_string
+        new_string.append(new_char(char, shift))
+    return ''.join(new_string)
 
 
 def caesar_decode_string(main_string, shift):
     return caesar_encode_string(main_string, (-1) * shift)
 
 
-def vigenere_encode(my_string, key):
-    """return string encode like vigenere"""
+def vigenere_encode_and_decode(my_string, key, state):
+    """encode and decode string like vigenere"""
+    constant = -1   # for different between encode and decode
+    if state == 'encode':
+        constant = 1
     length = len(key)
-    new_string = ''
+    new_string = []
     for i in range(0, len(my_string)):
         cur_key = key[i % length]
         if (ord(cur_key) >= ord('a')) and (ord(cur_key) <= ord('z')):
-            new_string += new_char(my_string[i], ord(cur_key) - ord('a'))
+            new_string.append(new_char(my_string[i], constant*(ord(cur_key) - ord('a'))))
         elif (ord(cur_key) >= ord('A')) and (ord(cur_key) <= ord('Z')):
-            new_string += new_char(my_string[i], ord(cur_key) - ord('A'))
+            new_string.append(new_char(my_string[i], constant*(ord(cur_key) - ord('A'))))
         else:
-            new_string += my_string[i]
-    return new_string
+            new_string.append(my_string[i])
+    return ''.join(new_string)
 
-
-def vigenere_decode(my_string, key):
-    """return string decode like vigenere"""
-    length = len(key)
-    new_string = ''
-    for i in range(0, len(my_string)):
-        cur_key = key[i % length]
-        if (ord(cur_key) >= ord('a')) and (ord(cur_key) <= ord('z')):
-            new_string += new_char(my_string[i], ord('a') - ord(cur_key))
-        elif (ord(cur_key) >= ord('A')) and (ord(cur_key) <= ord('Z')):
-            new_string += new_char(my_string[i],  ord('A') - ord(cur_key))
-        else:
-            new_string += my_string[i]
-    return new_string

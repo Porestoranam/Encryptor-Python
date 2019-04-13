@@ -1,27 +1,18 @@
 import math
 import string
 import sys
+import collections
 from encode_and_decode import new_char
-
-
-def make_dic_of_alphabet():
-    """base dict with null"""
-    dic = dict()
-    for symbol in string.ascii_letters:
-        dic[symbol] = 0
-    return dic
 
 
 def count_approximate(main_string):
     """return dict of allocation(v) letters for main_string"""
-    allocation_for_string = make_dic_of_alphabet()
-    length = 0
+    allocation_for_string = collections.Counter()
     for symbol in main_string:
-        length += 1
         if symbol in string.ascii_letters:
             allocation_for_string[symbol] += 1
     for key in allocation_for_string.keys():
-        allocation_for_string[key] /= length    # float
+        allocation_for_string[key] /= sum(allocation_for_string.values())    # float
     return allocation_for_string
 
 
@@ -37,23 +28,21 @@ def get_all_opportunities(main_string):
     """get all strings we can"""
     opportunities_strings = []
     for shift in range(0, 26):
-        current_string = ''
+        current_string = []
         for char in main_string:
-            current_string += new_char(char, shift)
-        opportunities_strings.append(current_string)
+            current_string.append(new_char(char, shift))
+        opportunities_strings.append(''.join(current_string))
     return opportunities_strings
 
 
 def count_ideal_allocation(text_for_train):
     """return ideal_allocation approximation"""
-    ideal_allocation = make_dic_of_alphabet()
-    length_text_for_train = 0
+    ideal_allocation = collections.Counter()
     for symbol in text_for_train:
         if symbol in string.ascii_letters:
-            length_text_for_train += 1
             ideal_allocation[symbol] += 1
     for letter in string.ascii_letters:
-        ideal_allocation[letter] /= length_text_for_train
+        ideal_allocation[letter] /= sum(ideal_allocation.values())
     return ideal_allocation
 
 
