@@ -7,12 +7,10 @@ from encode_and_decode import new_char
 
 def count_approximate(main_string):
     """return dict of allocation(v) letters for main_string"""
-    allocation_for_string = collections.Counter()
-    for symbol in main_string:
-        if symbol in string.ascii_letters:
-            allocation_for_string[symbol] += 1
-    for key in allocation_for_string.keys():
-        allocation_for_string[key] /= sum(allocation_for_string.values())    # float
+    allocation_for_string = collections.Counter(ch for ch in main_string if ch in string.ascii_letters)
+    length = sum(allocation_for_string.values())
+    for key in string.ascii_letters:
+        allocation_for_string[key] /= length    # float
     return allocation_for_string
 
 
@@ -37,12 +35,10 @@ def get_all_opportunities(main_string):
 
 def count_ideal_allocation(text_for_train):
     """return ideal_allocation approximation"""
-    ideal_allocation = collections.Counter()
-    for symbol in text_for_train:
-        if symbol in string.ascii_letters:
-            ideal_allocation[symbol] += 1
+    ideal_allocation = collections.Counter(ch for ch in text_for_train if ch in string.ascii_letters)
+    length = sum(ideal_allocation.values())
     for letter in string.ascii_letters:
-        ideal_allocation[letter] /= sum(ideal_allocation.values())
+        ideal_allocation[letter] /= length
     return ideal_allocation
 
 
