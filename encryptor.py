@@ -60,7 +60,7 @@ elif args.method == 'decode':
 elif args.method == 'hack':
     file = open(args.model_file, 'r')
     ideal_allocation_in_model = pickle.load(open(args.model_file, 'rb'))
-    answer_text = hack_and_train.answer(input_, ideal_allocation_in_model)
+    answer_text = hack_and_train.changed_text(input_, ideal_allocation_in_model)          # changed here
 
 
 elif args.method == 'train':

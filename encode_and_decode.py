@@ -1,11 +1,14 @@
+number_of_lowercase_letters = 26
+
+
 def new_char(char, shift):
     """make new char using value of shift"""
     ord_char = ord(char)
     if (ord_char - ord('A') >= 0) and (ord('Z') - ord_char >= 0):
-        new_ord = (ord_char - ord('A') + shift) % 26 + ord('A')
+        new_ord = (ord_char - ord('A') + shift) % number_of_lowercase_letters + ord('A')
         return chr(new_ord)
     elif (ord_char - ord('a') >= 0) and (ord('z') - ord_char >= 0):
-        new_ord = (ord_char - ord('a') + shift) % 26 + ord('a')
+        new_ord = (ord_char - ord('a') + shift) % number_of_lowercase_letters + ord('a')
         return chr(new_ord)
     else:
         return char
@@ -39,4 +42,3 @@ def vigenere_encode_and_decode(my_string, key, state):
         else:
             new_string.append(my_string[i])
     return ''.join(new_string)
-
