@@ -1,8 +1,8 @@
 import math
 import string
 import collections
-from encode_and_decode import new_char
 from encode_and_decode import number_of_lowercase_letters
+from encode_and_decode import caesar_encode_string
 
 lowercase_set = set(string.ascii_lowercase)
 letters_set = set(string.ascii_letters)
@@ -37,10 +37,4 @@ def answer_shift_func(main_string, ideal_allocation):
 def changed_text(main_string, ideal_allocation):
     """returns changed_text with the best approximation"""
     ans_shift = answer_shift_func(main_string, ideal_allocation)
-    ans_text = []
-    for ch in main_string:
-        if ch not in letters_set:
-            ans_text.append(ch)
-        else:
-            ans_text.append(new_char(ch, ans_shift))
-    return ''.join(ans_text)
+    return caesar_encode_string(main_string, ans_shift)
