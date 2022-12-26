@@ -1,1 +1,3 @@
-# Review_1_python
+# Simple encode and decode algorithms for some ciphers.
+
+1st python course at university
